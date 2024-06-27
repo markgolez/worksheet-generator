@@ -16,6 +16,8 @@ from topicScript import trigo
 
 
 def main(details):
+    # print(details)
+    print('from genQ','cardinality', len(details[0]))
     for each in details:
         # print(each)
         if each[0] == Linear:
@@ -32,6 +34,9 @@ def main(details):
             questions, anskey = trigo.main(each[1], each[3])
 
         each.append([questions, anskey])
+
+    # print(details)
+    print('after genQ','cardinality', len(details[0]))
 
     return details
 

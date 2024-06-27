@@ -516,11 +516,8 @@ def bounds(level):
             coefficients.append(rem)
             temp = numpy.all(numpy.abs(numpy.diff(numpy.sign(coefficients))) == 2) or all(
                 i >= 0 for i in coefficients) or all(i < 0 for i in coefficients)
-            # print(k, quotient)
-            # print(rationalRoots)
-            # print(coefficients)
             time.sleep(2)
-        # print(coefficients)
+
 
     properties = {'Bound:  ': bound
 

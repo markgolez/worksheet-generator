@@ -10,25 +10,9 @@ import os
 from topicsVariable import *
 
 
-# def headerTemplate():
-#     header = PageStyle("header", header_thickness=5)
-#     # Create left header
-#     with header.create(Head("L")):
-#         header.append(bold("Name ___________________ Student No.___ G__/___ "))
-#         header.append(LineBreak())
-#         header.append(bold("Nickname: _________________"))
-#     # Create right header
-#     with header.create(Head("R")):
-#         header.append(bold("Date: ________Score: ____"))
-#         header.append(LineBreak())
-#         header.append(bold("\nWorksheet No.: _____ No. of items done: ____"))
-
-#     return header
-
-
-def no_of(no_of_spaces):
+def no_of(spaces):
     x = r'\\'
-    for i in range(no_of_spaces-1):
+    for i in range(spaces-1):
         x += r' \\'
 
     return x
@@ -52,6 +36,7 @@ def no_of(no_of_spaces):
 
 
 def worksheet(details, filename):
+    # Loop for worksheet and answer key
     for i in range(2):
         print(i)
         geometry_options = {
@@ -84,13 +69,9 @@ def worksheet(details, filename):
         # doc.preamble.append(Command('newcolumntype', arguments=[
         #                     NoEscape('L'), NoEscape('>{$}l<{$}')]))
 
-    # loop for worksheet and answer key
-
-        # loop of each main topic
-
         filename = filename+'anskey' if i == 1 else filename
         subTopicIndex = 0
-        # spacesSubTopics = [14, 6, 29, 5, 7, 7, 8, 8, 4, 4]
+        
         for each in details:
             '''details =[
             ['Polynomial','Identifying Polynomial',
@@ -98,10 +79,6 @@ def worksheet(details, filename):
             ['Polynomial','Multiplying Polynomial','instruction',5,[[givQuesAns],]]
             ]
             '''
-
-            # givQuesAns = [ [(),(),...], [(),(),...]]
-            for top in each:
-                print(top)
                 
             mainTopic, subTopic, instruction, items, givQuesAns = each
             # Diplay Centered Topic
@@ -145,17 +122,12 @@ def worksheet(details, filename):
 
         doc.generate_pdf(filename, clean_tex=True)
         print('end')
-        # doc.close()
+
 
 
 def main(details):
-    from pathlib import Path
-
-    # p = Path(__file__).with_name('template.py')
-    # print(p)
-    # checks if the same filename exists in the directory
-    files = os.listdir('output/')
     
+    files = os.listdir('output/')
     i = 1
     temp = 'polynomial - #'
     while temp+'.pdf' in files:
@@ -164,3 +136,4 @@ def main(details):
         i += 1
     filename = 'output/' + temp
     worksheet(details, filename)
+    
