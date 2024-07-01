@@ -2,6 +2,8 @@ import numpy
 # from numpy.core.numeric import Infinity
 from sympy import *
 from sympy.abc import x, y, a, b, c, d, e, f, g, h
+from sympy import divisors #, divisor_count
+from fractions import Fraction
 from topicsVariable import *
 import numpy as np
 import scipy as sy
@@ -403,6 +405,20 @@ def polEndBehavior(degree, lead_coef):
     return endBehavior
 
 
+
+def unique_combi(p,q):
+    unique_combinations = []
+    
+    for i in range(len(p)):
+        for j in range(len(q)):
+            unique_combinations.append(Rational(p[i]/q[j]))
+    unique_combinations = set(unique_combinations)
+    print(unique_combinations)
+
+    return unique_combinations
+
+
+
 def RRTandGraphing(level, subTopic):
 
     roots = [gen(3, 4), 0] if level == 'easy' else [gen(3, 3), gen(1, 2)]
@@ -414,14 +430,22 @@ def RRTandGraphing(level, subTopic):
                      for i in rationalRoots]
     rationalRoots = list(dict.fromkeys(rationalRoots))
     rationalRoots = ', '.join(rationalRoots)
+    
+    lead_coef = polys.polytools.LC(gen_form)
+    constant_term = gen_form.subs({x: 0})
+    p = divisors(constant_term)
+    q = divisors(lead_coef)
+    combi = unique_combi(p,q)
+
     properties = {'FTA:  ': 'Atmost ' + str(degree),
+                  'Possible Roots:   ±':combi,
                   'Factored form:   ': factored_form,
                   'Actual roots:   ': rationalRoots
 
                   }
 
     if subTopic == Graphing_Polynomial:
-        lead_coef = polys.polytools.LC(gen_form)
+        
         endbehavior = polEndBehavior(degree, lead_coef)
 
         properties[r'End Behavior:\\ \\ \\ '] = endbehavior

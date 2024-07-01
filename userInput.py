@@ -1,16 +1,26 @@
-# from topicScript.topicsVariable import *
 import Topics
 
-
 def main():
+
+    '''
+    return
+    
+    details =[
+                        ['Polynomial','Identifying Polynomial','instruction',5], 
+                        ['Polynomial','Multiplying Polynomial','instruction',5], 
+                        ['Polynomial','Dividing Polynomial','instruction',5], 
+                        ['Conic','Properties of Circle','instruction',5],
+                        ['Conic','Properties of Ellipse','instruction',5]
+                    ]
+    '''
+
     topics = Topics.mainTopics
     listTopics = {}
     # print all main topic
     for idx, each in enumerate(topics.keys()):
         print(idx+1, ': ', each)
         listTopics[idx+1] = each\
-
-    # input('Plese type the number(s) of the chosen topic separated by a comma. ')
+        
     chosenTopics = input(
         'Plese type the number(s) of the chosen topic separated by a comma. ')
     chosenTopics = [listTopics[int(x)] for x in list(chosenTopics.split(','))]
@@ -41,4 +51,3 @@ def main():
     
     return data
 
-# data = [['Polynomial', 'Simplifying Interval Notation', 'Simplify the given interval notation.', 6], ['Polynomial', 'Polynomial Inequality', 'Give the solution set to the given polynomial inequality.', 8]]

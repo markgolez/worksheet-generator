@@ -16,38 +16,35 @@ class Worksheets:
 def main():
     
     setNumber = input(
-            'Please type 0 for single worksheet and 1 for multiple set')
+            'Please type 0 for single worksheet and 1 for multiple set: ')
     if setNumber == '0':
-        # Ask user input
         '''details =[
-        ['Polynomial','Identifying Polynomial','instruction',5], 
-        ['Polynomial','Multiplying Polynomial','instruction',5], 
-        ['Polynomial','Dividing Polynomial','instruction',5], 
-        ['Conic','Properties of Circle','instruction',5],
-        ['Conic','Properties of Ellipse','instruction',5]]
+                        ['Polynomial','Identifying Polynomial','instruction',5], 
+                        ['Polynomial','Multiplying Polynomial','instruction',5], 
+                        ['Polynomial','Dividing Polynomial','instruction',5], 
+                        ['Conic','Properties of Circle','instruction',5],
+                        ['Conic','Properties of Ellipse','instruction',5]
+                    ]
         '''
+        # Ask user input
         details = userInput.main()
         worksheet = Worksheets(details)
         worksheet.generate()
         
-        # start(details)
+
     elif setNumber == '1':
         numberOfSet = int(input(
-            'Please type the number of Sets'))
+            'Please type the number of Sets: '))
         details = userInput.main()
         worksheets = {}
-        # threads = createThreads(numberOfSet)
+
         for i in range(numberOfSet):
-            # details = params
-            print('hi',len(details[0]))
             worksheets[i] = Worksheets(details)
             worksheets[i].generate()
             for j in range(len(details)):
                 details[j].pop()
 
             
-            
-    
 
 main()
     
