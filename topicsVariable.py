@@ -20,6 +20,7 @@ Descartes_Rule_of_Sign = "Descarte's Rule of Sign"
 Rational_Root_Theorem = 'Rational Root Theorem'
 Solving_Polynomial_Equation = 'Solving Polynomial Equation'
 Graphing_Polynomial = 'Graphing Polynomial'
+Golez_Theorem = 'Polynomial Sequence '
 Upper_Lower_Bounds = 'Upper and Lower Bounds Theorem'
 Problem_Solving = 'Problem Solving'
 Simplifying_Interval_Notation = 'Simplifying Interval Notation'
@@ -48,7 +49,7 @@ Spaces = {
     Multiplying_Polynomial: 10,
     Dividing_Polynomial: 10,
     Factoring_By_Grouping: 10,
-    Factoring_using_Mixed_Methods: 15,
+    Factoring_using_Mixed_Methods: 14,
     Evaluating_Polynomial: 6,
     Remainder_Theorem: 6,
     Factor_Theorem: 6,
@@ -56,6 +57,7 @@ Spaces = {
     Rational_Root_Theorem: 40,
     Solving_Polynomial_Equation: 20,
     Graphing_Polynomial: 25,
+    Golez_Theorem: 21,
     Upper_Lower_Bounds: 6,
     Problem_Solving: 15,
     Simplifying_Interval_Notation: 7,

@@ -59,12 +59,13 @@ def worksheet(details, filename):
                 'Name ___________________  Student No.___ G__/___ Date: ________Score: ____ '))
             doc.append(NoEscape(r'\\'))
             doc.append(MediumText(
-                'Nickname: ___________________   Quiz No.: _____ '))
+                'Nickname: ___________________   Worksheet No.: _____ '))
             doc.append(NoEscape(r' \\'))
 
         doc.packages.append(Package('ragged2e'))
         doc.packages.append(Package('multicol'))
-        # doc.packages.append(Package('amsmath'))
+        # doc.packages.append(Package('xspace'))
+        doc.packages.append(Package('amsmath'))
 
         # doc.preamble.append(Command('newcolumntype', arguments=[
         #                     NoEscape('L'), NoEscape('>{$}l<{$}')]))
@@ -107,15 +108,17 @@ def worksheet(details, filename):
                             doc.append(NoEscape(k))
                             doc.append(NoEscape(r' \\'))
                         
-                        # if indx % 6 == 2 and indx != 2:
+                        # if indx+1 % 3 == 0 and indx != 3:
                         #     doc.append(NoEscape(r' \\'))
-                        # if indx % 6 == 5:
+                        # if indx+1 % 2 == 0 :
                         #     doc.append(NoEscape(r'\newpage'))
 
                     doc.append(NoEscape(r'\end{multicols}'))
                     # doc.append(NoEscape(r'\newpage'))
                     # doc.append(NoEscape(r'\newpage'))
 
+
+            # Page breaks at third sub topic
             subTopicIndex += 1
             if subTopicIndex == 3:  # 3:
                 doc.append(NoEscape(r'\newpage'))

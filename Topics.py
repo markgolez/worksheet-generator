@@ -1,5 +1,6 @@
 from topicsVariable import *
 
+# default Instructions
 mainTopics = {
     'Linear': {},
     'Quadratic': {},
@@ -12,13 +13,14 @@ mainTopics = {
         Factoring_using_Mixed_Methods: 'Factor completely the given polynomial expressions.',
         Evaluating_Polynomial: 'Evaluate each function at the given value.',
         Remainder_Theorem: 'Give the remainder of each of the following expressions using remainder theorem.',
-        Factor_Theorem: 'State if the given binomial is a factor of the given polynomial.',
+        Factor_Theorem: 'Give the remainder and state if the given binomial is a factor of the given polynomial.',
         Descartes_Rule_of_Sign: 'Give the table of possible positive and negative roots of the given polynomial equation.',
         Rational_Root_Theorem: 'Identify the nature of the roots (table of variations), the number of roots (FTA), possible roots, actual roots and the factored form of the given polynomial.',
         # Rational_Root_Theorem: 'Use Rational Root Theorem to solve for the roots of the given polynomial equations.',
         Solving_Polynomial_Equation: 'Solve the given equations.',
         Graphing_Polynomial: 'Give the possible roots (RRT), nature of roots (DRS), number of roots (FTA), factored form, actual roots, end behavior and graph of the given polynomial. ',
         # Graphing_Polynomial: 'Identify the properties of the given polynomial equation then sketch its graph.',
+        Golez_Theorem: 'Find the polynomial equation in general form given the first few terms of the polynomial sequence.',
         Upper_Lower_Bounds: 'Tell whether the given value of k is an upper bound, lower bound or neither on the real zeros of p(x).',
         Problem_Solving: 'Solve the given problems involving polynomials.',
         Simplifying_Interval_Notation: 'Simplify the given interval notation.',

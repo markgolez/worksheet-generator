@@ -20,6 +20,7 @@ Descartes_Rule_of_Sign = "Descarte's Rule of Sign"
 Rational_Root_Theorem = 'Rational Root Theorem'
 Solving_Polynomial_Equation = 'Solving Polynomial Equation'
 Graphing_Polynomial = 'Graphing Polynomial'
+Golez_Theorem = 'Golez Theorem'
 Upper_Lower_Bounds = 'Upper and Lower Bounds Theorem'
 Problem_Solving = 'Problem Solving'
 

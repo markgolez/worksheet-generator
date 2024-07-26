@@ -10,7 +10,7 @@ import scipy as sy
 from random import randint
 import math
 import time
-
+from .goleztheorem import polynomial as  pol
 
 r1 = symbols('r1')
 pl = Symbol('+')
@@ -69,6 +69,7 @@ def pm(p, q):
 
 
 def genExc(p, q, r=0, *args):
+    # Generate any number except zero and *args
     x = randint(p, q)
     while x == r or x in args:
         x = randint(p, q)
@@ -80,7 +81,20 @@ def gen(p, q):
     return x
 
 
+def genPolSequence(deg):
+    polynom = a*x+b
+    polynom = polynom.subs({a: 3, b: (-1)*genExc(1, 3)})
+    for i in range(deg-1):
+        polynom *= (a*x+b)
+        polynom = polynom.subs({a: genExc(1,2), b: (-1)**i*genExc(1, 3)})
+    
+    polynom = expand(polynom)
+
+    return polynom
+
+
 def generatePolynomial(int_root, rat_root):
+    # Generates a polynomial with int and rational roots.
     degree = int_root+rat_root
     polynom = a*x+b
     if rat_root == 0:
@@ -291,7 +305,6 @@ def factoring(typeIs, level):
     polEq = latex(polEq, mode='inline')
 
     props = list(properties.keys())
-    # anskeys = ''
     anskeys = [x + latex(properties[x], mode='inline',
                          fold_short_frac=False) for x in props]
 
@@ -299,30 +312,18 @@ def factoring(typeIs, level):
 
 
 def evaluatePoly(topic, level):
-    # expr1 = genPoly(randint(3,6))
-    # expr2 = genPoly(1) if level == 'easy' else genPoly(2)
-    # quo_rem = polys.polytools.div(expr1, expr2)
-
-    # remainder = '' if (quo_rem[1]/expr[1]
-    #                     ) == 0 else '+'+str(quo_rem[1]/expr[1])
-    # expanded = str(quo_rem[0]) + remainder
-    # properties = {'Quotient:   ': quo_rem[0],
-    #                 'Leading Term:   ': leading_term,
-    #                 'Degree:  ': deg_ans,
-    #                 'Leading Coefficient:   ': lead_coef,
-    #                 'Constant Term:   ': constant_term,
-    #                 'Remainder: ': quo_rem[1]
-    #                 }
-
-    polynomial = genPoly(
-        randint(2, 5))
-
-    factor1 = genPoly(1, True)
-
+    
+    polynomial = genPoly(randint(2, 5))
     divisor = genPoly(1, True)
-    r, = solve(divisor, x)
-    value = genExc(-7, 7) if level == 'easy' else r
-    evaluatedValue = polynomial.subs({x: value})
+    rem = polys.polytools.div(polynomial, divisor)
+    value = genExc(-7, 7)
+    if level == 'easy':
+        evaluatedValue = polynomial.subs({x: value})
+        divisor = x - value  
+    else:
+        evaluatedValue = rem[1]
+
+    
     if topic == Evaluating_Polynomial:
         properties = {'Evaluated Value: ': evaluatedValue}
         polEq = latex(polynomial, mode='inline') + '   at $x=$ ' + \
@@ -331,10 +332,8 @@ def evaluatePoly(topic, level):
         properties = {'Remainder: ': evaluatedValue}
         polEq = '('+latex(polynomial, mode='inline')+')' + ' $\div$ ' + \
             '('+latex(divisor, mode='inline', fold_short_frac=False)+')'
-
     elif topic == Factor_Theorem:
         isFactor = bool(randint(0, 1))
-        rem = polys.polytools.div(polynomial, divisor)
         if isFactor:
             while rem[1] != 0:
                 divisor = genPoly(1, True)
@@ -344,25 +343,14 @@ def evaluatePoly(topic, level):
                 divisor = genPoly(1, True)
                 rem = polys.polytools.div(polynomial, divisor)
         answer = 'Factor' if isFactor else r'Not a Factor'
-        properties = {'Answer: ': answer}
+        properties = {  'Remainder: ': rem[1],
+                        'Answer: ': answer,
+                     }
         polEq = '('+latex(polynomial, mode='inline')+')' + ' $\div$ ' + \
             '('+latex(divisor, mode='inline', fold_short_frac=False)+')'
     props = list(properties.keys())
     anskeys = propsLatex(properties)
 
-    # polynomial = genPoly(
-    #     randint(2, 5))
-
-    # p = genExc(-2, 3)
-    # q = genExc(-5, 5)
-    # r = a/b
-    # r = r.subs({a: p, b: q})
-    # value = genExc(-7, 7) if level == 'easy' else genPoly(1)
-    # print(value)
-    # evaluatedValue = polynomial.subs({x: value})
-    # properties = {'Evaluated Value: ': evaluatedValue}
-    # polEq = latex(polynomial, mode='inline') + '   at $x=$ ' + \
-    #     latex(value, mode='inline', fold_short_frac=False)
 
     return (polEq, props, anskeys)
 
@@ -407,13 +395,14 @@ def polEndBehavior(degree, lead_coef):
 
 
 def unique_combi(p,q):
+    # Returns the unique combi of set p / set q
     unique_combinations = []
     
     for i in range(len(p)):
         for j in range(len(q)):
             unique_combinations.append(Rational(p[i]/q[j]))
     unique_combinations = set(unique_combinations)
-    print(unique_combinations)
+    # print(unique_combinations)
 
     return unique_combinations
 
@@ -556,6 +545,60 @@ def bounds(level):
     return (polEq, props, anskeys)
 
 
+def golezTheorem(level):
+    deg, = [gen(1,3) if level == 'easy' else gen(3,4)]
+    starting_sign = gen(2,3)
+    coefficients = [(-1)**(i + starting_sign)*gen(1,5) for i in range(deg+1) ]
+    polynom = Poly(coefficients,x).as_expr()
+    terms = deg + starting_sign
+    sequence =  [str(polynom.subs({x:i+1})) for i in range(terms)]
+    sequence = ', '.join(sequence)
+    given = latex(sequence, mode='inline')
+    properties = {r'Polynomial in General Form:  \\': polynom} 
+    props = list(properties.keys())
+    anskeys = propsLatex(properties)
+    
+    return (given, props, anskeys)
+
+
+def golezTheorem3(level):
+    deg, = [2 if level == 'easy' else gen(3,4)]
+    polynom = genPolSequence(deg)
+    sequence = []
+    terms = deg+gen(2,3)
+    print('terms', terms)
+    for i in range(terms):
+        print(i)
+        term = str(polynom.subs({x: i+1}))
+        sequence.append(term)
+    sequence = ', '.join(sequence)
+    given = latex(sequence, mode='inline')
+    properties = {r'Polynomial in General Form:  \\': polynom}
+    props = list(properties.keys())
+    anskeys = propsLatex(properties)
+    
+    return (given, props, anskeys)
+
+
+def golezTheorem2(level):
+    deg, = [gen(2,3) if level == 'easy' else 4]
+    sequence = [gen(-5,6) for i in range(deg+1) ]
+    poly_coefficients = pol(sequence)
+    poly_coefficients = [sympify(each) for each in poly_coefficients]
+    poly_equation = Poly(poly_coefficients,x).as_expr()
+    nth_term = poly_equation.subs({x: deg+2,})
+    sequence.append(nth_term)
+    sequence = [str(each) for each in sequence]
+    sequence = ', '.join(sequence)
+    given = latex(sequence, mode='inline')
+    properties = {r'Polynomial in General Form:  \\': r'f(x)= '+str(poly_equation)}
+    anskeys = propsLatex(properties)
+    
+    return (given, props, anskeys)
+
+
+
+
 def pol_ineq(level):
     roots = [gen(3, 5), 0] if level == 'easy' else [gen(4, 4), gen(1, 3)]
 
@@ -685,7 +728,7 @@ def main(subTopic, items):
             given_question_ans.append(item)
 
         elif subTopic == Dividing_Polynomial:
-            level = 'easy' if i <= i//2 else 'hard'
+            level = 'easy' if i <= items//2 else 'hard'
             given, question, ans = operations('divide', level)
             item = [given, question, ans]
             given_question_ans.append(item)
@@ -733,6 +776,12 @@ def main(subTopic, items):
         elif subTopic == Simplifying_Interval_Notation:
             level = 'easy' if i < (2*items)//3 else 'hard'
             given, question, ans = simplify_interval_notation(level)
+            item = [given, question, ans]
+            given_question_ans.append(item)
+
+        elif subTopic == Golez_Theorem:
+            level = 'easy' if i <= items//2 else 'hard'
+            given, question, ans = golezTheorem(level)
             item = [given, question, ans]
             given_question_ans.append(item)
 

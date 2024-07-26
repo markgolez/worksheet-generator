@@ -48,3 +48,5 @@ def main():
 
 main()
     
+
+# python D:\programming\math_worksheet_generator\main.py 
