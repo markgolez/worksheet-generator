@@ -1,7 +1,7 @@
 from topicsVariable import *
 from topicScript import linear
 from topicScript import quadratic
-from topicScript import polynomial as pol
+from topicScript.polynomial import polynomials as pol
 from topicScript import expLog
 from topicScript import conics
 from topicScript import trigo
